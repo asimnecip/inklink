@@ -1,9 +1,9 @@
 use anchor_lang::prelude::*;
 
-declare_id!("H2QcxTVK9sWKBTVE6sg8uJ7KxfDcB5zwDQ92E7ED1gzW");
+declare_id!("AwCDoyQvn8H9oszX7EkzVhM1L6DFu6QCE1vqPM34gbtG");
 
 #[program]
-pub mod backend {
+pub mod rust_backend {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {

@@ -10,7 +10,7 @@ const LoginPage: React.FC = () => {
     // Redirect to profile page when connected
     useEffect(() => {
         if (connected) {
-            navigate('/profile');
+            navigate('/');
         }
     }, [connected, navigate]);
 

@@ -5,17 +5,12 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSignOut = () => {
-        
-        console.log(localStorage.length);
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            const value = localStorage.getItem(key!);
-            console.log(`${key}: ${value}`);
-        }
-        
+        // Example: Clear user session data from local storage
+        localStorage.removeItem('walletName');
+        alert(localStorage.length)
     
         // Redirect to login page or home page
-        navigate('/');
+        navigate('/login');
     };
 
     return (

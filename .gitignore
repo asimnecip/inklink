@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#--------------------------------------------------------------------------------------
+# frontend
+
 # dependencies
 frontend/node_modules
 frontend/.pnp
@@ -22,12 +25,75 @@ frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
 
-# backend
 
-backend/.anchor
-backend/.DS_Store
-backend/target
-backend/**/*.rs.bk
-backend/node_modules
-backend/test-ledger
-backend/.yarn
+#--------------------------------------------------------------------------------------
+# rust-backend
+
+rust-backend/.anchor
+rust-backend/.DS_Store
+rust-backend/target
+rust-backend/**/*.rs.bk
+rust-backend/node_modules
+rust-backend/test-ledger
+rust-backend/.yarn
+
+#--------------------------------------------------------------------------------------
+# nest-backend
+
+# compiled output
+nest-backend/dist
+nest-backend/node_modules
+nest-backend/build
+
+# Logs
+nest-backend/logs
+nest-backend/*.log
+nest-backend/npm-debug.log*
+nest-backend/pnpm-debug.log*
+nest-backend/yarn-debug.log*
+nest-backend/yarn-error.log*
+nest-backend/lerna-debug.log*
+
+# OS
+nest-backend/.DS_Store
+
+# Tests
+nest-backend/coverage
+nest-backend/.nyc_output
+
+# IDEs and editors
+nest-backend/.idea
+nest-backend/.project
+nest-backend/.classpath
+nest-backend/.c9/
+nest-backend/*.launch
+nest-backend/.settings/
+nest-backend/*.sublime-workspace
+
+# IDE - VSCode
+nest-backend/.vscode/*
+nest-backend/!.vscode/settings.json
+nest-backend/!.vscode/tasks.json
+nest-backend/!.vscode/launch.json
+nest-backend/!.vscode/extensions.json
+
+# dotenv environment variable files
+nest-backend/.env
+nest-backend/.env.development.local
+nest-backend/.env.test.local
+nest-backend/.env.production.local
+nest-backend/.env.local
+
+# temp directory
+nest-backend/.temp
+nest-backend/.tmp
+
+# Runtime data
+nest-backend/pids
+nest-backend/*.pid
+nest-backend/*.seed
+nest-backend/*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+nest-backend/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
