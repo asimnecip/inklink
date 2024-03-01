@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  nest-backend:
+    build: ./nest-backend
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./nest-backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - postgres
+
+  # rust-backend:
+  #   build: ./rust-backend
+  #   ports:
+  #     - "3002:3000"
+  #   volumes:
+  #     - ./rust-backend:/usr/src/app
+  #   depends_on:
+  #     - postgres
+
+volumes:
+  postgres-data:
