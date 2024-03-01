@@ -6,12 +6,12 @@ const MainPage: React.FC = () => {
     return (
         <>
         <Layout>
+            <Chat />
             <div className="room-list">
                 {/* List available rooms here */}
             </div>
             <button>Create a Room</button>
         </Layout>
-        <Chat />
         </>
     );
 };

@@ -1,7 +1,7 @@
-import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
+// App.tsx
 
+import React from 'react';
+import './App.css';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from '../features/Auth/LoginPage';
 import ProfilePage from '../features/Auth/ProfilePage';
 import MainPage from '../features/Game/MainPage';
-
+import PrivateRoute from '../components/PrivateRoute/PrivateRoute'; // Import the PrivateRoute component
 
 const wallets = [new PhantomWalletAdapter()];
 
@@ -21,11 +21,11 @@ const App: React.FC = () => {
                 <WalletModalProvider>
                   <Router>
                       <Routes>
-                          <Route path="/" element={<MainPage />} />
+                          <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
                           <Route path="/login" element={<LoginPage />} />
-                          <Route path="/profile" element={<ProfilePage />} />
+                          <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
                       </Routes>
-                    </Router>
+                  </Router>
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
