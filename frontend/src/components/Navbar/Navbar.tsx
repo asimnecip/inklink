@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import SignOutButton from '../SignOutButton/SignOutButton';
+import WalletButton from '../WalletButton/WalletButton';
 import './Navbar.css'
 import inkLinkLogo from '../../assets/inklink.svg'; // Import the logo
 
@@ -11,11 +11,15 @@ const Navbar: React.FC = () => {
     return (
         <nav>
             <div className="logo">
-                <img src={inkLinkLogo} alt="Inklink" />
+                <img 
+                    src={inkLinkLogo} 
+                    alt="Inklink" 
+                    onClick={() => navigate('/')}
+                    style={{ cursor: 'pointer' }}
+                     />
             </div>
             <div className="menu">
-                <button onClick={() => navigate('/profile')}>Profile</button>
-                <SignOutButton />
+                <WalletButton />
             </div>
         </nav>
     );

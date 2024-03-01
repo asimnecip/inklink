@@ -7,18 +7,14 @@ const LoginPage: React.FC = () => {
     const { connected } = useWallet();
     const navigate = useNavigate();
 
-    // Redirect to profile page when connected
     useEffect(() => {
         if (connected) {
             navigate('/');
         }
-    }, [connected, navigate]);
+    }, [connected]);
 
     return (
-        <div>
-            <h2>Login with Your Wallet</h2>
-            <WalletMultiButton />
-        </div>
+        <WalletMultiButton />
     );
 };
 

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Connection, clusterApiUrl } from '@solana/web3.js';
 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+
 const ProfilePage: React.FC = () => {
     const { publicKey } = useWallet();
     const [balance, setBalance] = useState<number | null>(null);
+    const username = useSelector((state: RootState) => state.user.username);
 
     useEffect(() => {
         const getBalance = async () => {
@@ -33,6 +37,7 @@ const ProfilePage: React.FC = () => {
             ) : (
                 <p>Fetching balance...</p>
             )}
+            <p>Username: {username}</p>
         </div>
     );
 };
