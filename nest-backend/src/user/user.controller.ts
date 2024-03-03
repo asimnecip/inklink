@@ -13,7 +13,6 @@ export class UserController {
   }
   @Get('check/:walletAddress')
   async checkUser(@Param('walletAddress') walletAddress: string) {
-    console.log("HEY");
     return this.userService.checkUserExists(walletAddress);
   }
 }

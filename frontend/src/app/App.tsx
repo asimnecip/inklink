@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import ProfilePage from '../pages/Profile/ProfilePage';
 import Home from '../pages/Home/Home';
+import RoomClassic from '../pages/Room/RoomClassic';
 import PrivateRoute from '../components/PrivateRoute/PrivateRoute'; // Import the PrivateRoute component
 import Layout from './Layout'; // Import the Layout component
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+                            <Route path="/room" element={<RoomClassic />} /> // Ensure this matches your Room component
                         </Routes>
                         </Layout>
                     </Router>

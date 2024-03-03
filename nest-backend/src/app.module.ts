@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RoomsGateway } from './rooms/rooms.gateway';
 import { ChatGateway } from './chat/chat.gateway';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { CanvasGateway } from './canvas/canvas.gateway';
+import { RedisModule } from './redis/redis.module';
+import { RoomModule } from './room/room.module';
 
 
 @Module({
@@ -21,8 +23,10 @@ import { UserModule } from './user/user.module';
       synchronize: true, // Be cautious with this in production
     }),
     UserModule,
+    RedisModule,
+    RoomModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RoomsGateway, ChatGateway],
+  providers: [AppService, ChatGateway, CanvasGateway],
 })
 export class AppModule {}
