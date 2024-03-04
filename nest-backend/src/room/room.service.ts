@@ -18,4 +18,17 @@ export class RoomService {
   async findAll(): Promise<Room[]> {
     return this.roomsRepository.find();
   }
+  async closeRoom(roomId: string): Promise<void> {
+    const room = await this.roomsRepository.findOneBy({ roomId });
+    if (!room) {
+      throw new Error('Room not found');
+    }
+    room.isClosed = true;
+    await this.roomsRepository.save(room);
+  }
+
+  async findNotClosedRooms(): Promise<Room[]> {
+    return this.roomsRepository.find({ where: { isClosed: false } });
+  }
+  
 }

@@ -30,18 +30,19 @@ export class CanvasGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('join-room')
-  async handleJoinRoom(@ConnectedSocket() client: Socket, @MessageBody() data: { roomId: string }) {
-    const { roomId } = data;
+  async handleJoinRoom(@ConnectedSocket() client: Socket, @MessageBody() data: { roomId: string, username:string }) {
+    const { roomId, username } = data;
     client.join(roomId);
     console.log(`Client ${client.id} joined room ${roomId}`);
 
-    // const savedState = await this.redisService.get(`canvasState:${roomId}`);
+    const savedState = await this.redisService.get(`canvasState:${roomId}`);
+    console.log(Boolean(savedState));
     // if (savedState) {
     //   console.log("ifte");
     //   this.server.to(roomId).emit('canvas-state-from-server', JSON.parse(savedState));
     //   } else {
         this.server.to(roomId).emit('get-canvas-state');
-        console.log("elsete");
+        // console.log("elsete");
     // }
   }
 
@@ -67,7 +68,7 @@ export class CanvasGateway implements OnGatewayConnection, OnGatewayDisconnect {
     
     console.log(`Saving state for room ${roomId}`);
     await this.redisService.set(`canvasState:${roomId}`, JSON.stringify(state));
-    this.server.to(roomId).emit('canvas-state-from-server', state);
+    this.server.to(roomId).emit('canvas-state-from-server', data);
   }
 
   @SubscribeMessage('draw-line')
@@ -80,9 +81,8 @@ export class CanvasGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('clear')
   async handleClear(@ConnectedSocket() client: Socket, @MessageBody() data: { roomId: string }) {
     const { roomId } = data;
-    this.server.to(roomId).emit('clear');
-    await this.redisService.set(`canvasState:${roomId}`, "");
-    this.server.to(roomId).emit('canvas-state-from-server', "");    
+    await this.redisService.set(`canvasState:${roomId}`, null);
+    this.server.to(roomId).emit('canvas-state-from-server', null);    
   }
   // @SubscribeMessage('leave-room')
   // async handleLeaveRoom(@ConnectedSocket() client: Socket, @MessageBody() data: { roomId: string }) {

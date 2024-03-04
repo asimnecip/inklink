@@ -1,5 +1,4 @@
-// src/rooms/room.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Room {
@@ -14,4 +13,7 @@ export class Room {
 
   @CreateDateColumn()
   creationTime: Date;
+
+  @Column({ default: false }) // New column to indicate if the room is closed
+  isClosed: boolean;
 }
