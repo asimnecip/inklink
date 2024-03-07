@@ -3,17 +3,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateRoomModal from './CreateRoomModal';
 import RoomListItem from './RoomListItem';
-
-interface Room {
-  roomId: string;
-  roomName: string;
-  creator: string;
-  creationTime?: Date; // Include other fields as necessary, optional fields can be marked with ?
-}
+import { RoomPG } from '../../../types';
 
 const RoomList: React.FC = () => {
   // In your RoomList component
-  const [rooms, setRooms] = useState<Room[]>([]); // Specify that rooms is an array of Room objects
+  const [rooms, setRooms] = useState<RoomPG[]>([]); // Specify that rooms is an array of Room objects
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -43,7 +37,7 @@ const RoomList: React.FC = () => {
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {rooms.map(room => (
           <li key={room.roomId} style={{ margin: '10px 0' }}>
-            <RoomListItem room={room} />
+            <RoomListItem {...room} />
           </li>
         ))}
       </ul>

@@ -1,29 +1,59 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentRoom } from '../../features/rooms/roomSlice';
-import { Room } from '../../../types'; // Adjust the import path as necessary
-import { useNavigate  } from 'react-router-dom'; // Import useHistory hook from react-router-dom
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/store';
 
-interface RoomListItemProps {
-  room: Room;
-}
+  import { useNavigate } from 'react-router-dom';
+import RoleModal from '../RoleModal/RoleModal'; // Import the RoleModal component
+import { RoomPG, RoomRE, RoomHY } from '../../../types';
+// import { joinRoom } from '../../features/room/roomSlice';
 
-const RoomListItem: React.FC<RoomListItemProps> = ({ room }) => {
+import { connectSocket, userJoinedRoomAct } from '../../middleware/socketIOMiddleware';
+const socketUrl = 'http://localhost:7000'
+
+const RoomListItem: React.FC<RoomPG> = ( room:RoomPG ) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Use useNavigate hook for navigation
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const activeUser = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    // The URL should be replaced with your WebSocket server URL
+    dispatch(connectSocket(socketUrl));
+  }, [dispatch]); 
 
   const handleSelectRoom = () => {
-    dispatch(setCurrentRoom(room));
-    navigate('/room'); // Use navigate with state to avoid showing roomId in URL
-    // Navigate to the room's page as needed
+    setIsModalOpen(true); // Open the modal instead of directly navigating
+  };
+
+  const handleJoinRoom = (role: string) => {
+    
+    // socket.emit('join-room', { roomId: room.roomId, userId: activeUser.id }) // Emit join-room event with roomId
+    dispatch(
+      userJoinedRoomAct({
+        roomId:room.roomId,
+        roomName:room.roomName,
+        userId:activeUser.id,
+        userName:activeUser.username,
+        userRole:role,
+        userTeamId:0, // for now
+    }));
+    // Dispatch and navigate actions can go here based on the role
+    navigate('/room');
   };
 
   return (
-    <button 
-      onClick={handleSelectRoom}
-      style={{ width: '100%', padding: '10px', cursor: 'pointer' }}>
-        {room.roomName} - Created by {room.creator}
-    </button>
+    <>
+      <button 
+        onClick={handleSelectRoom}
+        style={{ width: '100%', padding: '10px', cursor: 'pointer' }}>
+          {room.roomName} - Created by {room.creator}
+      </button>
+      <RoleModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSubmit={handleJoinRoom} />
+    </>
   );
 };
 

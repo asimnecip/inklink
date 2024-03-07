@@ -2,8 +2,9 @@ import React, { ReactNode, useCallback, useEffect } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import { useDispatch } from 'react-redux';
-import { setUsername } from '../features/user/userSlice';
+import { setUser } from '../features/user/userSlice';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { UserPG } from '../../types';
 
 interface LayoutProps {
     children: ReactNode;
@@ -25,17 +26,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         'Content-Type': 'application/json',
                     },
                 });
-                const data = await response.json();
+                const data : UserPG = await response.json();
     
-                if (data.exists) {
-                    console.log('Existing username:', data.username);
-                    // User exists, you can redirect or perform any action needed
-                } else {
-                    console.log('Generated username:', data.username);
-                    // User did not exist and was created, you can redirect or perform any action needed
-                }
-
-                dispatch(setUsername(data.username));
+                dispatch(setUser(data));
             } catch (error) {
                 console.error('Error fetching username:', error);
             }

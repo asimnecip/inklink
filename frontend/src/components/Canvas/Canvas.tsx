@@ -17,15 +17,11 @@ type DrawLineProps = {
   color: string
 }
 
-interface CanvasProps {
-  roomId: string; // Add this line
+interface RoomProps {
+  roomId: string;
 }
 
-// interface ColorResult {
-//   hex: string;
-// }
-
-const Canvas: FC<CanvasProps> = ({ roomId }) => {
+const Canvas: FC<RoomProps> = ( {roomId} ) => {
   const [color, setColor] = useState<string>('#fff')
   const { canvasRef, onMouseDown, clear } = useDraw(createLine)
   const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -37,10 +33,6 @@ const Canvas: FC<CanvasProps> = ({ roomId }) => {
   useEffect(() => {
     const ctx = canvasRef.current?.getContext('2d')
 
-    // socket.emit('client-ready')
-
-    socket.emit('join-room', { roomId: roomId, username: username }) // Emit join-room event with roomId
-
     socket.on('get-canvas-state', () => {
       if (!canvasRef.current?.toDataURL()) return
       
@@ -51,7 +43,6 @@ const Canvas: FC<CanvasProps> = ({ roomId }) => {
 
     socket.on('canvas-state-from-server', (data: {roomId:string, state:string}) => {
       if (data.roomId != roomId) return;
-      console.log(data.state);
       console.log('I received the state');
       const img = new Image()
       img.src = data.state
@@ -75,7 +66,6 @@ const Canvas: FC<CanvasProps> = ({ roomId }) => {
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      socket.emit('leave-room', roomId); // Optional: Implement leave-room logic on server
       socket.off('draw-line');
       socket.off('set-canvas-state');
       socket.off('canvas-state-from-server');

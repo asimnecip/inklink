@@ -17,12 +17,22 @@ export class UserService {
     await this.userRepository.save(user);
     return user;
   }
-  async checkUserExists(walletAddress: string): Promise<{ exists: boolean, username: string }> {
+  async checkUserExists(walletAddress: string): Promise<{ 
+    exists: boolean, 
+    id: number,
+    username: string 
+    walletAddress: string 
+  }> {
     let user = await this.userRepository.findOne({ where: { walletAddress } });
 
     if (user) {
       // User exists, return their details
-      return { exists: true, username: user.username };
+      return { 
+        exists: true, 
+        id: user.id,
+        username: user.username,
+        walletAddress: user.walletAddress 
+      };
     } else {
       // User does not exist, generate a random username
       const username = generateUsername();
@@ -32,7 +42,12 @@ export class UserService {
       await this.userRepository.save(user);
 
       // Return the new user's details
-      return { exists: false, username: user.username };
+      return { 
+        exists: true, 
+        id: user.id,
+        username: user.username,
+        walletAddress: user.walletAddress 
+      };
     }
   }
 }

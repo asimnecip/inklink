@@ -1,12 +1,12 @@
 // src/features/user/userSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserPG } from '../../../types';
 
-interface UserState {
-  username: string | null;
-}
 
-const initialState: UserState = {
+const initialState: UserPG = {
+  id:null,
   username: null,
+  walletAddress: null,
 };
 
 export const userSlice = createSlice({
@@ -14,14 +14,16 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     // Action to set the username
-    setUsername: (state, action: PayloadAction<string>) => {
-      state.username = action.payload;
+    setUser: (state, action: PayloadAction<UserPG>) => {
+      state.id = action.payload.id;
+      state.username = action.payload.username;
+      state.walletAddress = action.payload.walletAddress;
     },
   },
 });
 
 // Export the action
-export const { setUsername } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 
 // Export the reducer
 export default userSlice.reducer;
