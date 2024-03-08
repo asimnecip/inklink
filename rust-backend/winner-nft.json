@@ -1,0 +1,30 @@
+{
+    "name": "Name",
+    "symbol": "symbol",
+    "description": "your description",
+    "image": "https://nft.storage/files/bafkreibre76wqfdt4sosekagnfmdeedzmwdvmjl6lnp72dyeygaaapxy44",
+    "attributes": [
+        {
+            "trait_type": "type",
+            "value": "value"
+        }
+    ],
+    "properties": {
+        "creators": [
+            {
+                "address": "creators's wallet address",
+                "share": "royalty"
+            }
+        ],
+        "files": [
+            {
+                "type": "image/png",
+                "uri": "ipfs://bafkreibre76wqfdt4sosekagnfmdeedzmwdvmjl6lnp72dyeygaaapxy44"
+            }
+        ]
+    },
+    "collection": {
+        "name": "name",
+        "family": "family"
+    }
+}

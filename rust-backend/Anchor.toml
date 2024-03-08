@@ -11,7 +11,7 @@ rust_backend = "AwCDoyQvn8H9oszX7EkzVhM1L6DFu6QCE1vqPM34gbtG"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/home/asimnecip/.config/solana/id.json"
 
 [scripts]
